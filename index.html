@@ -1,191 +1,122 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <title>Aditya V - Portfolio</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    
-    <style>
-        :root {
-            --bg-color: #f8f9fa;
-            --text-color: #444;
-            --container-bg: white;
-            --button-bg: transparent;
-            --button-hover-bg: rgba(0, 0, 0, 0.1);
-            --button-border: 1px solid #444;
-        }
+<title>Aditya V - Portfolio</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif;}
+body, html {
+  height: 100%;
+  color: #777;
+  line-height: 1.8;
+}
 
-        .dark-mode {
-            --bg-color: #222;
-            --text-color: #ddd;
-            --container-bg: #333;
-            --button-bg: transparent;
-            --button-hover-bg: rgba(255, 255, 255, 0.2);
-            --button-border: 1px solid #ddd;
-        }
+/* Parallax Effect */
+.bgimg-1, .bgimg-2, .bgimg-3 {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 
-        body, html {
-            height: 100%;
-            color: var(--text-color);
-            background-color: var(--bg-color);
-            line-height: 1.8;
-        }
+/* Images */
+.bgimg-1 { background-image: url('images/bg1.jpg'); min-height: 100%; }
+.bgimg-2 { background-image: url("images/bg1.jpg"); min-height: 400px; }
+.bgimg-3 { background-image: url("images/bg1.jpg"); min-height: 400px; }
 
-        /* Navbar */
-        .w3-top {
-            background-color: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-        }
+.w3-wide { letter-spacing: 10px; }
+.w3-hover-opacity { cursor: pointer; }
 
-        .w3-bar .w3-button {
-            color: var(--text-color);
-            transition: 0.3s;
-        }
-
-        .w3-bar .w3-button:hover {
-            background-color: var(--button-hover-bg);
-        }
-
-        /* Parallax Sections */
-        .bgimg-1, .bgimg-2, .bgimg-3 {
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            filter: grayscale(20%) contrast(110%);
-        }
-
-        .bgimg-1 {
-            background-image: url('images/bg1.jpg');
-            min-height: 100%;
-        }
-
-        .bgimg-2 {
-            background-image: url("images/bg1.jpg");
-            min-height: 400px;
-        }
-
-        .bgimg-3 {
-            background-image: url("images/bg1.jpg");
-            min-height: 400px;
-        }
-
-        /* Content Box Styling */
-        .w3-container {
-            background: var(--container-bg);
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 40px;
-        }
-
-        /* Buttons */
-        .w3-button {
-            border-radius: 20px;
-            padding: 10px 20px;
-            background: var(--button-bg);
-            color: var(--text-color);
-            border: var(--button-border);
-            transition: 0.3s;
-        }
-
-        .w3-button:hover {
-            background: var(--button-hover-bg);
-        }
-
-        .toggle-container {
-            position: fixed;
-            top: 10px;
-            right: 20px;
-        }
-    </style>
+/* Mobile Responsiveness */
+@media only screen and (max-device-width: 1600px) {
+  .bgimg-1, .bgimg-2, .bgimg-3 { background-attachment: scroll; min-height: 400px; }
+}
+</style>
 </head>
 <body>
 
 <!-- Navbar -->
 <div class="w3-top">
-    <div class="w3-bar w3-white w3-card" id="myNavbar">
-        <a href="#home" class="w3-bar-item w3-button w3-wide">HOME</a>
-        <a href="#about" class="w3-bar-item w3-button">ABOUT</a>
-        <a href="#skills" class="w3-bar-item w3-button">SKILLS</a>
-        <a href="#projects" class="w3-bar-item w3-button">PROJECTS</a>
-        <a href="#achievements" class="w3-bar-item w3-button">ACHIEVEMENTS</a>
-        <a href="#contact" class="w3-bar-item w3-button">CONTACT</a>
-        <button class="w3-bar-item w3-button w3-right" onclick="toggleDarkMode()">Dark Mode</button>
-    </div>
+  <div class="w3-bar" id="myNavbar">
+    <a href="#home" class="w3-bar-item w3-button">HOME</a>
+    <a href="#about" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-user"></i> ABOUT</a>
+    <a href="#skills" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-cogs"></i> SKILLS</a>
+    <a href="#projects" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-code"></i> PROJECTS</a>
+    <a href="#achievements" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-trophy"></i> ACHIEVEMENTS</a>
+    <a href="#contact" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-envelope"></i> CONTACT</a>
+  </div>
 </div>
 
 <!-- Hero Section -->
 <div class="bgimg-1 w3-display-container w3-opacity-min" id="home">
-    <div class="w3-display-middle w3-center">
-        <h1 class="w3-xxlarge w3-text-white">WELCOME TO MY PORTFOLIO</h1>
-    </div>
+  <div class="w3-display-middle" style="white-space:nowrap;">
+    <span class="w3-center w3-padding-large w3-black w3-xlarge w3-wide w3-animate-opacity">ADITYA <span class="w3-hide-small">V</span></span>
+  </div>
 </div>
 
 <!-- About Section -->
-<div class="w3-container w3-padding-64" id="about">
-    <h3 class="w3-center">ABOUT ME</h3>
-    <div class="w3-center">
-        <img src="images/pfp.jpeg" alt="Profile Picture" class="w3-circle" style="width:150px;">
-    </div>
-    <p class="w3-center"><strong>Aditya V</strong></p>
-    <p class="w3-center">Phone: 9108099547 | Email: <a href="mailto:adityatlr2003@gmail.com">adityatlr2003@gmail.com</a></p>
-    <p class="w3-center"><a href="#">LinkedIn Profile</a></p>
-    <p class="w3-center">Innovative and resourceful computer science student passionate about solving complex problems through technology.</p>
+<div class="w3-content w3-container w3-padding-64" id="about">
+  <h3 class="w3-center">ABOUT ME</h3>
+  <div class="w3-center">
+    <img src="images/pfp.jpeg" alt="Profile Picture" class="w3-circle" style="width:150px;">
+  </div>
+  <p class="w3-center"><strong>Aditya V</strong></p>
+  <p class="w3-center">Phone: 9108099547 | Email: <a href="mailto:adityatlr2003@gmail.com">adityatlr2003@gmail.com</a></p>
+  <p class="w3-center"><a href="#">LinkedIn Profile</a></p>
+  <p class="w3-center">Innovative and resourceful computer science student passionate about solving complex problems through technology.</p>
 </div>
 
 <!-- Skills Section -->
-<div class="w3-container w3-padding-64" id="skills">
-    <h3 class="w3-center">SKILLS</h3>
-    <ul>
-        <li>Python, Machine Learning, Web Development, Generative AI</li>
-        <li>Stable Diffusion, Prompt Engineering, Critical Thinking</li>
-        <li>Communication Skills, Problem Solving, Creative Thinking</li>
-    </ul>
+<div class="w3-content w3-container w3-padding-64" id="skills">
+  <h3 class="w3-center">SKILLS</h3>
+  <ul>
+    <li>Communication Skills</li>
+    <li>Critical Thinking & Problem Solving</li>
+    <li>Creative Thinking</li>
+    <li>Python, Statistics, Machine Learning</li>
+    <li>Web Development, Generative AI, Stable Diffusion</li>
+    <li>Prompt Engineering</li>
+  </ul>
 </div>
 
 <!-- Projects Section -->
-<div class="w3-container w3-padding-64" id="projects">
-    <h3 class="w3-center">PROJECTS</h3>
-    <ul>
-        <li>Profit Maximization Model</li>
-        <li>Iris Flower Classification</li>
-        <li>PCB Defect Detection with YOLOv5</li>
-        <li>LoRA Training for Stable Diffusion 1.5</li>
-    </ul>
+<div class="w3-content w3-container w3-padding-64" id="projects">
+  <h3 class="w3-center">PROJECTS</h3>
+  <ul>
+    <li><strong>Profit Maximization Model</strong> – Developed a Jupyter Notebook for data analysis & regression modeling.</li>
+    <li><strong>Iris Flower Classification</strong> – Used ML algorithms to classify Iris flower species.</li>
+    <li><strong>PCB Defect Detection with YOLOv5</strong> – Trained YOLOv5 to detect PCB defects and hosted it using Gradio.</li>
+    <li><strong>LoRA Training for Stable Diffusion 1.5</strong> – Improved AI-generated artwork through refined model adjustments.</li>
+    <li><strong>Multimodal GPT Model</strong> – Created a custom GPT model with multimodal output based on user sentiment.</li>
+  </ul>
 </div>
 
 <!-- Achievements Section -->
-<div class="w3-container w3-padding-64" id="achievements">
-    <h3 class="w3-center">ACHIEVEMENTS</h3>
-    <ul>
-        <li>Smart India Hackathon Winner 2023</li>
-        <li>Devhacks 2023 - Built Web3 NGO Smart Contract Platform</li>
-        <li>Hackman 2023 - Created ML-based Banking Automation</li>
-    </ul>
+<div class="w3-content w3-container w3-padding-64" id="achievements">
+  <h3 class="w3-center">ACHIEVEMENTS</h3>
+  <ul>
+    <li><strong>Smart India Hackathon Winner 2023</strong> – Developed a Blockchain-based web app for secure NGO transactions.</li>
+    <li><strong>Devhacks 2023</strong> – Built Web3 NGO Smart Contract platform.</li>
+    <li><strong>Hackman 2023</strong> – Created an ML-powered banking automation system.</li>
+    <li><strong>JITHack 2022</strong> – Developed a mental healthcare questionnaire web app.</li>
+  </ul>
 </div>
 
 <!-- Contact Section -->
-<div class="w3-container w3-padding-64" id="contact">
-    <h3 class="w3-center">CONTACT ME</h3>
-    <p class="w3-center">Email: <a href="mailto:adityatlr2003@gmail.com">adityatlr2003@gmail.com</a></p>
+<div class="w3-content w3-container w3-padding-64" id="contact">
+  <h3 class="w3-center">CONTACT ME</h3>
+  <p class="w3-center">Email: <a href="mailto:adityatlr2003@gmail.com">adityatlr2003@gmail.com</a></p>
 </div>
 
-<script>
-function toggleDarkMode() {
-    document.body.classList.toggle("dark-mode");
-    localStorage.setItem("dark-mode", document.body.classList.contains("dark-mode"));
-}
-
-window.onload = function () {
-    if (localStorage.getItem("dark-mode") === "true") {
-        document.body.classList.add("dark-mode");
-    }
-};
-</script>
+<!-- Footer -->
+<footer class="w3-center w3-black w3-padding-64 w3-opacity">
+  <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank" class="w3-hover-text-green">w3.css</a></p>
+</footer>
 
 </body>
 </html>
