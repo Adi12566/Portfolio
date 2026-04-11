@@ -5,7 +5,7 @@ export const RESUME_DATA = {
     email: "adityatlr2003@gmail.com",
     phone: "9108099547",
     location: "Bangalore, India",
-    linkedin: "https://linkedin.com/in/aditya-v"
+    linkedin: "https://www.linkedin.com/in/aditya-v-05a1511ab/"
   },
   profile: "Computer Science graduate focused on Generative AI systems, LLM workflows, and retrieval-augmented architectures. Hands-on experience building multi-agent simulations, memory-driven AI systems, and scalable content pipelines. Worked in high-volume production environments, optimizing prompt workflows and adapting across LLM providers under real-world constraints.",
   experience: [
