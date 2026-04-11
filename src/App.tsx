@@ -1,8 +1,3 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { motion } from 'motion/react';
 import { Mail, Phone, MapPin, Linkedin, Github, ExternalLink, ChevronRight, Award, BookOpen, Cpu, Code2, BrainCircuit, Terminal } from 'lucide-react';
 import ThreeBackground from './components/ThreeBackground';
