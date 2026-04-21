@@ -121,38 +121,56 @@ export default function App() {
         <Section id="projects">
           <SectionTitle>Featured Projects</SectionTitle>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {RESUME_DATA.projects.map((project, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="group p-8 bg-slate-900/40 border border-slate-800 rounded-xl hover:border-emerald-500/50 hover:bg-slate-900/60 transition-all"
-              >
-                <div className="flex justify-between items-start mb-6">
-                  <div className="p-3 bg-emerald-500/10 rounded-lg text-emerald-400">
-                    <Terminal size={24} />
+            {RESUME_DATA.projects.map((project, i) => {
+              const Content = (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className={cn(
+                    "group p-8 bg-slate-900/40 border border-slate-800 rounded-xl transition-all h-full",
+                    project.link ? "hover:border-emerald-500/50 hover:bg-slate-900/60 cursor-pointer" : "cursor-default"
+                  )}
+                >
+                  <div className="flex justify-between items-start mb-6">
+                    <div className="p-3 bg-emerald-500/10 rounded-lg text-emerald-400">
+                      <Terminal size={24} />
+                    </div>
+                    {project.link && (
+                      <div className="flex gap-4 text-slate-400">
+                        <ExternalLink size={20} className="hover:text-emerald-400" />
+                      </div>
+                    )}
                   </div>
-                  <div className="flex gap-4 text-slate-400">
-                    <ExternalLink size={20} className="hover:text-emerald-400 cursor-pointer" />
+                  <h3 className={cn(
+                    "text-xl font-bold text-slate-100 mb-3 transition-colors",
+                    project.link && "group-hover:text-emerald-400"
+                  )}>
+                    {project.title}
+                  </h3>
+                  <p className="text-slate-400 text-sm leading-relaxed mb-6">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {project.tech.map((t) => (
+                      <span key={t} className="px-3 py-1 bg-slate-800 text-slate-300 text-xs font-mono rounded-full">
+                        {t}
+                      </span>
+                    ))}
                   </div>
-                </div>
-                <h3 className="text-xl font-bold text-slate-100 mb-3 group-hover:text-emerald-400 transition-colors">
-                  {project.title}
-                </h3>
-                <p className="text-slate-400 text-sm leading-relaxed mb-6">
-                  {project.description}
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {project.tech.map((t) => (
-                    <span key={t} className="px-3 py-1 bg-slate-800 text-slate-300 text-xs font-mono rounded-full">
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              );
+
+              return project.link ? (
+                <a key={i} href={project.link} target="_blank" rel="noopener noreferrer" className="block">
+                  {Content}
+                </a>
+              ) : (
+                <div key={i}>{Content}</div>
+              );
+            })}
           </div>
         </Section>
 

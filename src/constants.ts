@@ -27,12 +27,14 @@ export const RESUME_DATA = {
     {
       title: "MultiQuery RAG System",
       tech: ["Python", "Groq API", "Vector Embeddings"],
-      description: "Built a multi-query retrieval pipeline to expand user queries and improve information recall. Implemented vector similarity search to retrieve contextual knowledge before LLM synthesis."
+      description: "Built a multi-query retrieval pipeline to expand user queries and improve information recall. Implemented vector similarity search to retrieve contextual knowledge before LLM synthesis.",
+      link: "https://github.com/Adi12566/Multiquery-RAG.git"
     },
     {
       title: "LLM Diary Simulation with Persistent Memory",
       tech: ["Python", "Streamlit", "Groq API"],
-      description: "Developed a memory-recursive LLM system where outputs become persistent future context. Demonstrated emergent behavioral drift through long-term memory accumulation. Built an interactive interface to explore evolving AI behavior."
+      description: "Developed a memory-recursive LLM system where outputs become persistent future context. Demonstrated emergent behavioral drift through long-term memory accumulation. Built an interactive interface to explore evolving AI behavior.",
+      link: "https://github.com/Adi12566/Recursive-Diary-Simulator.git"
     },
     {
       title: "Gemini Conversational AI Agent",
