@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useNavigate } from 'react-router-dom';
 import { BrainCircuit, PenTool, Gamepad2, ArrowRight, Mail } from 'lucide-react';
@@ -40,6 +40,12 @@ export default function LandingPage() {
   const navigate = useNavigate();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    // Ensure state is null on entry
+    setHoveredIndex(null);
+  }, []);
+
   const activeBg = hoveredIndex === 1 ? '#fdfcf8' : 'black';
   const isDarkContent = hoveredIndex === 1;
 
@@ -49,7 +55,7 @@ export default function LandingPage() {
       style={{ backgroundColor: activeBg }}
     >
       {/* 3D Layer */}
-      <div className={cn("absolute inset-0 z-0 transition-opacity duration-1000", isDarkContent ? "opacity-20 grayscale" : "opacity-100")}>
+      <div className={cn("absolute inset-0 z-0 transition-opacity duration-1000 pointer-events-none", isDarkContent ? "opacity-20 grayscale" : "opacity-100")}>
         <MainMenuBackground accentColor={hoveredIndex !== null ? PORTFOLIOS[hoveredIndex].color : '#334155'} />
       </div>
 

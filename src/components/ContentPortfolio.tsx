@@ -26,9 +26,14 @@ export default function ContentPortfolio() {
       
       {/* Editorial Header */}
       <nav className="p-8 flex justify-between items-end border-b border-[#E2DCC8]">
-        <div>
-          <Link to="/" className="text-sm tracking-[0.4em] uppercase font-semibold">Aditya V</Link>
-          <div className="text-[10px] uppercase tracking-widest text-[#8A8A8A] mt-1 italic">Content Writer & Storyteller</div>
+        <div className="flex items-center gap-6">
+          <Link to="/" className="text-[10px] uppercase tracking-[0.3em] font-bold text-[#8A8A8A] hover:text-[#2C2C2C] transition-colors flex items-center gap-2 group">
+            <span className="group-hover:-translate-x-1 transition-transform inline-block">←</span> Back
+          </Link>
+          <div>
+            <Link to="/" className="text-sm tracking-[0.4em] uppercase font-semibold">Aditya V</Link>
+            <div className="text-[10px] uppercase tracking-widest text-[#8A8A8A] mt-1 italic">Content Writer & Storyteller</div>
+          </div>
         </div>
         <div className="hidden md:flex gap-12 text-[10px] uppercase tracking-[0.2em] font-bold">
           <a href="#about" onClick={(e) => scrollToSection(e, 'about')} className="hover:text-[#8A8A8A] transition-colors">About</a>

@@ -62,10 +62,14 @@ export default function ThreeBackground({
 }) {
   return (
     <div 
-      className="fixed inset-0 -z-10 pointer-events-none transition-colors duration-1000"
+      className="fixed inset-0 -z-10 pointer-events-none transition-colors duration-1000 overflow-hidden"
       style={{ backgroundColor: bgColor }}
     >
-      <Canvas camera={{ position: [0, 0, 5], fov: 60 }} dpr={[1, 2]}>
+      <Canvas 
+        camera={{ position: [0, 0, 5], fov: 60 }} 
+        dpr={[1, 2]}
+        style={{ pointerEvents: 'none' }}
+      >
         <ambientLight intensity={0.1} />
         <Particles count={particleCount} color={color} />
       </Canvas>

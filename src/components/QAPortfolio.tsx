@@ -32,10 +32,15 @@ export default function QAPortfolio() {
 
       <nav className="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-sm border-b border-[#00FF41]/30 p-6">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <Link to="/" className="text-xl font-bold tracking-tighter flex items-center gap-2">
-            <Terminal size={20} />
-            ADITYA_SYSTEMS_QA
-          </Link>
+          <div className="flex items-center gap-6">
+            <Link to="/" className="text-[10px] font-bold text-[#00FF41]/40 hover:text-[#FF00FF] transition-colors flex items-center gap-1 group">
+               <span className="group-hover:-translate-x-1 transition-transform inline-block">{"<--"}</span> BACK_TO_LANDING
+            </Link>
+            <Link to="/" className="text-xl font-bold tracking-tighter flex items-center gap-2 hover:text-white transition-colors">
+              <Terminal size={20} />
+              ADITYA_SYSTEMS_QA
+            </Link>
+          </div>
           <div className="flex gap-8 text-[10px] tracking-[0.2em]">
             <a href="#anomalies" onClick={(e) => scrollToSection(e, 'anomalies')} className="hover:text-[#FF00FF] transition-colors">ANOMALIES</a>
             <a href="#expertise" onClick={(e) => scrollToSection(e, 'expertise')} className="hover:text-[#FF00FF] transition-colors">TECH_STACK</a>

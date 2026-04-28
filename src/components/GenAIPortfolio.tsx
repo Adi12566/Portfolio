@@ -41,9 +41,14 @@ export default function GenAIPortfolio() {
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 bg-slate-950/50 backdrop-blur-md border-b border-slate-800">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link to="/" className="font-mono font-bold text-emerald-400 tracking-tighter text-xl">
-            ADITYA.V
-          </Link>
+            <div className="flex items-center gap-4">
+              <Link to="/" className="text-[10px] font-mono text-slate-500 hover:text-emerald-400 transition-colors uppercase tracking-[0.2em] flex items-center gap-1 group">
+                <ChevronRight size={10} className="rotate-180 group-hover:-translate-x-1 transition-transform" /> Back
+              </Link>
+              <Link to="/" className="font-mono font-bold text-emerald-400 tracking-tighter text-xl">
+                ADITYA.V
+              </Link>
+            </div>
           <div className="hidden md:flex gap-8 text-sm font-medium text-slate-400">
             {['About', 'Experience', 'Projects', 'Skills'].map((item) => (
               <a 
