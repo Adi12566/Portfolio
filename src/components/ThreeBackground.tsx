@@ -2,7 +2,7 @@ import { useRef, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
-function Particles({ count = 1500 }) {
+function Particles({ count = 1000, color = "#10b981" }) {
   const mesh = useRef<THREE.Points>(null!);
   const light = useRef<THREE.PointLight>(null!);
 
@@ -29,7 +29,7 @@ function Particles({ count = 1500 }) {
 
   return (
     <>
-      <pointLight ref={light} distance={10} intensity={2} color="#10b981" />
+      <pointLight ref={light} distance={10} intensity={2} color={color} />
       <points ref={mesh}>
         <bufferGeometry>
           <bufferAttribute
@@ -41,9 +41,9 @@ function Particles({ count = 1500 }) {
         </bufferGeometry>
         <pointsMaterial
           size={0.015}
-          color="#10b981"
+          color={color}
           transparent
-          opacity={0.6}
+          opacity={0.4}
           sizeAttenuation
         />
       </points>
@@ -51,12 +51,23 @@ function Particles({ count = 1500 }) {
   );
 }
 
-export default function ThreeBackground() {
+export default function ThreeBackground({ 
+  color = "#10b981", 
+  particleCount = 1000,
+  bgColor = "transparent" 
+}: { 
+  color?: string; 
+  particleCount?: number;
+  bgColor?: string;
+}) {
   return (
-    <div className="fixed inset-0 -z-10 bg-[#020617]">
-      <Canvas camera={{ position: [0, 0, 5], fov: 60 }}>
-        <ambientLight intensity={0.2} />
-        <Particles />
+    <div 
+      className="fixed inset-0 -z-10 pointer-events-none transition-colors duration-1000"
+      style={{ backgroundColor: bgColor }}
+    >
+      <Canvas camera={{ position: [0, 0, 5], fov: 60 }} dpr={[1, 2]}>
+        <ambientLight intensity={0.1} />
+        <Particles count={particleCount} color={color} />
       </Canvas>
     </div>
   );
