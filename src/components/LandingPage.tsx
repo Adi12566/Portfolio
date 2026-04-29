@@ -80,27 +80,33 @@ export default function LandingPage() {
           </a>
         </nav>
 
-        <main className="flex-1 flex flex-col items-center justify-center px-6">
+        <main className="flex-1 flex flex-col items-center justify-center px-6 py-12">
           <div className="max-w-6xl w-full">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {PORTFOLIOS.map((item, i) => (
                 <motion.div
                   key={item.path}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.1 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  whileHover={{ scale: 1.02, y: -5 }}
+                  transition={{ 
+                    type: "spring",
+                    stiffness: 300,
+                    damping: 20,
+                    delay: i * 0.1 
+                  }}
                   onMouseEnter={() => setHoveredIndex(i)}
                   onMouseLeave={() => setHoveredIndex(null)}
                   onClick={() => navigate(item.path)}
                   className={cn(
-                    "group relative p-12 border transition-all duration-500 cursor-pointer overflow-hidden",
+                    "group relative p-12 border transition-all duration-500 cursor-pointer overflow-hidden transform-gpu z-20",
                     hoveredIndex === i 
-                      ? isDarkContent ? "border-[#2c2c2c] scale-[1.02] bg-black/5" : "border-opacity-100 scale-[1.02] bg-white/5" 
+                      ? isDarkContent ? "border-[#2c2c2c] bg-black/5" : "border-opacity-100 bg-white/5" 
                       : isDarkContent ? "border-[#2c2c2c]/10 opacity-40 grayscale" : "border-white/10 grayscale opacity-40 hover:grayscale-0 hover:opacity-100"
                   )}
                   style={{ 
                     borderColor: hoveredIndex === i ? item.color : 'transparent',
-                    boxShadow: hoveredIndex === i && !isDarkContent ? `0 0 40px ${item.color}20` : 'none',
+                    boxShadow: hoveredIndex === i && !isDarkContent ? `0 20px 40px ${item.color}15` : 'none',
                   }}
                 >
                   <div className="flex flex-col h-full items-start">
