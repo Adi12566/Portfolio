@@ -51,7 +51,7 @@ export default function ContentPortfolio() {
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <h1 className="text-4xl md:text-8xl leading-[0.9] font-serif tracking-tighter mb-12 italic">
-              Crafting stories in the <Serif className="not-italic">Age of Intelligence.</Serif>
+              Crafting stories in the <Serif>Age of Intelligence.</Serif>
             </h1>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-start">
               <p className="text-lg md:text-xl leading-relaxed text-[#4A4A4A] font-light italic">
@@ -92,7 +92,7 @@ export default function ContentPortfolio() {
               >
                 <div className="flex justify-between items-start">
                   <div className="w-12 h-12 rounded-full border border-[#E2DCC8] flex items-center justify-center text-[#2C2C2C] group-hover:bg-[#2C2C2C] group-hover:text-white transition-all">
-                    {sample.type === 'Sample' ? (sample.platform === 'Playbook' ? <Music size={20} /> : <PenTool size={20} />) : <BookOpen size={20} />}
+                    {sample.type === 'Sample' ? (sample.title.toLowerCase().includes('lyrics') ? <Music size={20} /> : <PenTool size={20} />) : <BookOpen size={20} />}
                   </div>
                   <ArrowUpRight size={20} className="text-[#E2DCC8] group-hover:text-[#2C2C2C] transition-colors" />
                 </div>
