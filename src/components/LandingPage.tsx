@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { useNavigate } from 'react-router-dom';
+import { motion } from 'motion/react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { BrainCircuit, PenTool, Gamepad2, ArrowRight, Mail } from 'lucide-react';
 import { cn } from '../lib/utils';
 import MainMenuBackground from './MainMenuBackground';
@@ -38,16 +38,13 @@ const PORTFOLIOS = [
 
 export default function LandingPage() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-
-  const handleMouseEnter = (i: number) => setHoveredIndex(i);
-  const handleMouseLeave = () => setHoveredIndex(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    // Ensure state is null on entry
     setHoveredIndex(null);
-  }, []);
+  }, [location.pathname]);
 
   const activeBg = hoveredIndex !== null 
     ? (hoveredIndex === 1 ? '#fdfcf8' : PORTFOLIOS[hoveredIndex].color) 
@@ -57,16 +54,25 @@ export default function LandingPage() {
 
   return (
     <div 
-      className="min-h-screen transition-colors duration-700 font-mono flex flex-col relative overflow-hidden"
+      key={location.key}
+      className={cn(
+        "min-h-screen font-mono flex flex-col relative overflow-hidden transition-colors duration-700 selection:bg-black/10",
+        isHighContrast ? "text-black" : "text-white"
+      )}
       style={{ backgroundColor: activeBg }}
     >
-      {/* 3D Layer - Background behind everything */}
-      <div className={cn("fixed inset-0 -z-10 transition-opacity duration-1000 pointer-events-none", isHighContrast ? "opacity-10 grayscale" : "opacity-100")}>
-        <MainMenuBackground accentColor={hoveredIndex !== null ? PORTFOLIOS[hoveredIndex].color : '#334155'} />
+      {/* 3D Background Layer */}
+      <div className={cn(
+        "fixed inset-0 z-0 transition-opacity duration-1000 pointer-events-none",
+        isHighContrast ? "opacity-10 grayscale" : "opacity-100"
+      )}>
+        <MainMenuBackground 
+          accentColor={hoveredIndex !== null ? PORTFOLIOS[hoveredIndex].color : '#334155'} 
+        />
       </div>
 
       {/* Content Layer */}
-      <div className="relative z-10 flex flex-col flex-1" style={{ color: isHighContrast ? '#000' : 'white' }}>
+      <div className="relative z-10 flex flex-col flex-1">
         <nav className="p-8 flex justify-between items-center bg-transparent shrink-0">
           <div>
             <h1 className="text-xl font-black tracking-tighter uppercase whitespace-nowrap">
@@ -94,7 +100,7 @@ export default function LandingPage() {
                   key={item.path}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  whileHover={{ y: -5 }}
+                  whileHover={{ y: -8 }}
                   transition={{ 
                     type: "spring",
                     stiffness: 300,
@@ -105,7 +111,7 @@ export default function LandingPage() {
                   onMouseLeave={() => setHoveredIndex(null)}
                   onClick={() => navigate(item.path)}
                   className={cn(
-                    "group relative p-12 border transition-all duration-500 cursor-pointer overflow-hidden z-20 isolate rounded-sm",
+                    "group relative p-12 border transition-all duration-300 cursor-pointer overflow-hidden isolate rounded-sm",
                     hoveredIndex === i 
                       ? "border-black bg-black/[0.03]" 
                       : isHighContrast ? "border-black/5 opacity-20 grayscale" : "border-white/10 grayscale opacity-40 hover:grayscale-0 hover:opacity-100"
@@ -125,7 +131,7 @@ export default function LandingPage() {
                     <div className={cn(
                       "mt-auto flex items-center gap-3 text-[10px] font-black uppercase tracking-widest transition-all duration-500 translate-y-4 group-hover:translate-y-0",
                       hoveredIndex === i ? "opacity-100" : "opacity-0"
-                    )} style={{ color: isHighContrast ? '#000' : 'inherit' }}>
+                    )} style={{ color: isHighContrast ? '#000' : 'white' }}>
                       OPEN_SECTOR <ArrowRight size={14} />
                     </div>
                   </div>
@@ -136,8 +142,8 @@ export default function LandingPage() {
         </main>
 
         <footer className={cn(
-          "shrink-0 p-6 border-t transition-colors duration-700 flex flex-col md:flex-row justify-between items-center gap-4 text-[9px] font-bold uppercase tracking-[0.3em]",
-          isHighContrast ? "border-black/10 text-black/60" : "bg-black border-white/10 text-white"
+          "shrink-0 p-6 border-t transition-all duration-700 flex flex-col md:flex-row justify-between items-center gap-4 text-[9px] font-bold uppercase tracking-[0.3em]",
+          isHighContrast ? "border-black/10 text-black/60" : "bg-transparent border-white/10 text-white"
         )}>
           <div className="flex gap-6">
             <a href={RESUME_DATA.contact.linkedin} target="_blank" rel="noreferrer" className={cn("transition-colors", isHighContrast ? "hover:text-black" : "hover:text-white")}>LINKEDIN</a>
