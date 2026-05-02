@@ -40,28 +40,34 @@ export default function LandingPage() {
   const navigate = useNavigate();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
+  const handleMouseEnter = (i: number) => setHoveredIndex(i);
+  const handleMouseLeave = () => setHoveredIndex(null);
+
   useEffect(() => {
     window.scrollTo(0, 0);
     // Ensure state is null on entry
     setHoveredIndex(null);
   }, []);
 
-  const activeBg = hoveredIndex === 1 ? '#fdfcf8' : 'black';
-  const isDarkContent = hoveredIndex === 1;
+  const activeBg = hoveredIndex !== null 
+    ? (hoveredIndex === 1 ? '#fdfcf8' : PORTFOLIOS[hoveredIndex].color) 
+    : 'black';
+  
+  const isHighContrast = hoveredIndex !== null;
 
   return (
     <div 
-      className="min-h-screen transition-colors duration-700 selection:bg-white/20 font-mono overflow-hidden flex flex-col relative"
+      className="min-h-screen transition-colors duration-700 font-mono flex flex-col relative overflow-hidden"
       style={{ backgroundColor: activeBg }}
     >
-      {/* 3D Layer */}
-      <div className={cn("fixed inset-0 -z-10 transition-opacity duration-1000 pointer-events-none", isDarkContent ? "opacity-20 grayscale" : "opacity-100")}>
+      {/* 3D Layer - Background behind everything */}
+      <div className={cn("fixed inset-0 -z-10 transition-opacity duration-1000 pointer-events-none", isHighContrast ? "opacity-10 grayscale" : "opacity-100")}>
         <MainMenuBackground accentColor={hoveredIndex !== null ? PORTFOLIOS[hoveredIndex].color : '#334155'} />
       </div>
 
       {/* Content Layer */}
-      <div className="relative z-10 flex-1 flex flex-col min-h-screen" style={{ color: isDarkContent ? '#2c2c2c' : 'white' }}>
-        <nav className="p-8 flex justify-between items-center">
+      <div className="relative z-10 flex flex-col flex-1" style={{ color: isHighContrast ? '#000' : 'white' }}>
+        <nav className="p-8 flex justify-between items-center bg-transparent shrink-0">
           <div>
             <h1 className="text-xl font-black tracking-tighter uppercase whitespace-nowrap">
               {RESUME_DATA.name}
@@ -71,8 +77,8 @@ export default function LandingPage() {
           <a 
             href={`mailto:${RESUME_DATA.contact.email}`}
             className={cn(
-              "text-[10px] font-bold uppercase tracking-widest px-4 py-2 border transition-all flex items-center gap-2",
-              isDarkContent ? "border-[#2c2c2c]/20 hover:bg-[#2c2c2c] hover:text-white" : "border-white/20 hover:bg-white hover:text-black"
+              "text-[10px] font-bold uppercase tracking-widest px-4 py-2 border transition-all flex items-center gap-2 outline-none",
+              isHighContrast ? "border-black hover:bg-black hover:text-white" : "border-white/20 hover:bg-white hover:text-black"
             )}
           >
             <Mail size={12} />
@@ -80,15 +86,15 @@ export default function LandingPage() {
           </a>
         </nav>
 
-        <main className="flex-1 flex flex-col items-center justify-center px-6 py-12">
-          <div className="max-w-6xl w-full relative z-20">
+        <main className="flex-1 flex flex-col items-center justify-center px-6 py-12 relative z-20">
+          <div className="max-w-6xl w-full">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {PORTFOLIOS.map((item, i) => (
                 <motion.div
                   key={item.path}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  whileHover={{ scale: 1.02, y: -5 }}
+                  whileHover={{ y: -5 }}
                   transition={{ 
                     type: "spring",
                     stiffness: 300,
@@ -99,23 +105,19 @@ export default function LandingPage() {
                   onMouseLeave={() => setHoveredIndex(null)}
                   onClick={() => navigate(item.path)}
                   className={cn(
-                    "group relative p-12 border transition-all duration-500 cursor-pointer overflow-hidden z-20 isolate",
+                    "group relative p-12 border transition-all duration-500 cursor-pointer overflow-hidden z-20 isolate rounded-sm",
                     hoveredIndex === i 
-                      ? isDarkContent ? "border-[#2c2c2c] bg-black/5" : "border-opacity-100 bg-white/5" 
-                      : isDarkContent ? "border-[#2c2c2c]/10 opacity-40 grayscale" : "border-white/10 grayscale opacity-40 hover:grayscale-0 hover:opacity-100"
+                      ? "border-black bg-black/[0.03]" 
+                      : isHighContrast ? "border-black/5 opacity-20 grayscale" : "border-white/10 grayscale opacity-40 hover:grayscale-0 hover:opacity-100"
                   )}
-                  style={{ 
-                    borderColor: hoveredIndex === i ? item.color : 'transparent',
-                    boxShadow: hoveredIndex === i && !isDarkContent ? `0 20px 40px ${item.color}15` : 'none',
-                  }}
                 >
                   <div className="flex flex-col h-full items-start">
-                    <div className="mb-12 transition-all duration-500 group-hover:scale-110" style={{ color: hoveredIndex === i ? item.color : isDarkContent ? '#2c2c2c' : '#fff' }}>
+                    <div className="mb-12 transition-all duration-500 group-hover:scale-110" style={{ color: isHighContrast ? '#000' : '#fff' }}>
                       {item.icon}
                     </div>
                     
                     <span className="text-[10px] uppercase tracking-[0.4em] font-bold opacity-40 mb-4">{item.tag}</span>
-                    <h2 className="text-2xl font-black mb-2 tracking-tight transition-colors" style={{ color: hoveredIndex === i ? item.color : isDarkContent ? '#2c2c2c' : '#fff' }}>
+                    <h2 className="text-2xl font-black mb-2 tracking-tight transition-colors" style={{ color: isHighContrast ? '#000' : '#fff' }}>
                       {item.title}
                     </h2>
                     <p className="text-[10px] font-bold tracking-widest opacity-60 mb-12">{item.subtitle}</p>
@@ -123,7 +125,7 @@ export default function LandingPage() {
                     <div className={cn(
                       "mt-auto flex items-center gap-3 text-[10px] font-black uppercase tracking-widest transition-all duration-500 translate-y-4 group-hover:translate-y-0",
                       hoveredIndex === i ? "opacity-100" : "opacity-0"
-                    )} style={{ color: item.color }}>
+                    )} style={{ color: isHighContrast ? '#000' : 'inherit' }}>
                       OPEN_SECTOR <ArrowRight size={14} />
                     </div>
                   </div>
@@ -132,20 +134,19 @@ export default function LandingPage() {
             </div>
           </div>
         </main>
-      </div>
 
-      {/* Footer Layer */}
-      <footer className={cn(
-        "relative z-10 p-6 border-t transition-colors duration-700 flex flex-col md:flex-row justify-between items-center gap-4 text-[9px] font-bold uppercase tracking-[0.3em]",
-        isDarkContent ? "bg-[#fdfcf8] border-[#2c2c2c]/10 text-[#2c2c2c]/60" : "bg-black border-white/10 text-white"
-      )}>
-        <div className="flex gap-6">
-          <a href={RESUME_DATA.contact.linkedin} target="_blank" rel="noreferrer" className="hover:text-white transition-colors">LINKEDIN</a>
-          <span className="opacity-20">//</span>
-          <span>{RESUME_DATA.contact.location}</span>
-        </div>
-        <div className="opacity-20 tracking-[0.6em]">ADITYA_V // 2025 // [BUILD_VERSION_4.2]</div>
-      </footer>
+        <footer className={cn(
+          "shrink-0 p-6 border-t transition-colors duration-700 flex flex-col md:flex-row justify-between items-center gap-4 text-[9px] font-bold uppercase tracking-[0.3em]",
+          isHighContrast ? "border-black/10 text-black/60" : "bg-black border-white/10 text-white"
+        )}>
+          <div className="flex gap-6">
+            <a href={RESUME_DATA.contact.linkedin} target="_blank" rel="noreferrer" className={cn("transition-colors", isHighContrast ? "hover:text-black" : "hover:text-white")}>LINKEDIN</a>
+            <span className="opacity-20">//</span>
+            <span>{RESUME_DATA.contact.location}</span>
+          </div>
+          <div className="opacity-20 tracking-[0.6em]">{RESUME_DATA.name.toUpperCase()} // 2025 // [BUILD_VERSION_4.2]</div>
+        </footer>
+      </div>
 
       <style>{`
         @keyframes scanline {
