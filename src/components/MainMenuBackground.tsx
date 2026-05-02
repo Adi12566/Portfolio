@@ -103,11 +103,12 @@ function CircuitGrid({ color = "#10b981" }) {
 
 export default function MainMenuBackground({ accentColor = "#10b981" }) {
   return (
-    <div className="absolute inset-0 bg-black/40 pointer-events-none overflow-hidden">
+    <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
       <Canvas 
         camera={{ position: [0, 0, 5], fov: 60 }} 
-        dpr={1}
+        dpr={[1, 2]}
         style={{ pointerEvents: 'none' }}
+        gl={{ alpha: true, antialias: true }}
       >
         <CircuitGrid color={accentColor} />
         <FloatingText />

@@ -55,12 +55,12 @@ export default function LandingPage() {
       style={{ backgroundColor: activeBg }}
     >
       {/* 3D Layer */}
-      <div className={cn("absolute inset-0 z-0 transition-opacity duration-1000 pointer-events-none", isDarkContent ? "opacity-20 grayscale" : "opacity-100")}>
+      <div className={cn("fixed inset-0 -z-10 transition-opacity duration-1000 pointer-events-none", isDarkContent ? "opacity-20 grayscale" : "opacity-100")}>
         <MainMenuBackground accentColor={hoveredIndex !== null ? PORTFOLIOS[hoveredIndex].color : '#334155'} />
       </div>
 
       {/* Content Layer */}
-      <div className="relative z-10 flex-1 flex flex-col" style={{ color: isDarkContent ? '#2c2c2c' : 'white' }}>
+      <div className="relative z-10 flex-1 flex flex-col min-h-screen" style={{ color: isDarkContent ? '#2c2c2c' : 'white' }}>
         <nav className="p-8 flex justify-between items-center">
           <div>
             <h1 className="text-xl font-black tracking-tighter uppercase whitespace-nowrap">
@@ -81,7 +81,7 @@ export default function LandingPage() {
         </nav>
 
         <main className="flex-1 flex flex-col items-center justify-center px-6 py-12">
-          <div className="max-w-6xl w-full">
+          <div className="max-w-6xl w-full relative z-20">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {PORTFOLIOS.map((item, i) => (
                 <motion.div
@@ -99,7 +99,7 @@ export default function LandingPage() {
                   onMouseLeave={() => setHoveredIndex(null)}
                   onClick={() => navigate(item.path)}
                   className={cn(
-                    "group relative p-12 border transition-all duration-500 cursor-pointer overflow-hidden transform-gpu z-20",
+                    "group relative p-12 border transition-all duration-500 cursor-pointer overflow-hidden z-20 isolate",
                     hoveredIndex === i 
                       ? isDarkContent ? "border-[#2c2c2c] bg-black/5" : "border-opacity-100 bg-white/5" 
                       : isDarkContent ? "border-[#2c2c2c]/10 opacity-40 grayscale" : "border-white/10 grayscale opacity-40 hover:grayscale-0 hover:opacity-100"
